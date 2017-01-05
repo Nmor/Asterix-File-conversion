@@ -1,4 +1,5 @@
 #!/bin/bash
+#Current location for asterix audio files
 recorddir="${1:-/var/spool/asterisk/monitor}"
 cd $recorddir;
 for file in *.wav; do
