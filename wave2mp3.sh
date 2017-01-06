@@ -4,16 +4,28 @@
 #Then create the bash script 
 #!/bin/bash
 #Current location for asterix audio files
-recorddir="${1:-/var/www/html/monitor/2017/01/}"
+#recorddir="${1:-/var/spool/asterisk/monitor}"
+recorddir="./var/www/html/monitor/$1"
+targetdir="./var/www/html/monitor/mp3/$1"
+echo "$recorddir";
+echo "$targetdir";
 cd $recorddir;
-for file in *.wav; do
-mp3=$(basename "$file" .wav).mp3;
-nice lame -b 16 -m m -q 9-resample "$file" "$mp3";
-#touch --reference "$file" "$mp3";
-chown root.root "$mp3";
-chmod 444 "$mp3";
-mv "$mp3" /var/www/html/monitor/mp3/2017/01/;
-rm -f "$file";
+for day in `ls`; do # iterate through all days in month
+  echo "Begin conversion for day: $day";
+  cd $day;
+  targetdir="${targetdir}/$day";
+  echo "$targetdir";
+  mkdir -p $targetdir;
+  for file in *.js; do
+    mp3=$(basename "$file" .wav).mp3;
+    nice lame -b 16 -m m -q 9-resample "$file" "$mp3";
+    #touch --reference "$file" "$mp3";
+    chown asterisk.asterisk "$mp3";
+    chmod 444 "$mp3";
+    mv "$mp3" $targetdir;
+    echo rm -f "$file";
+  done
+  cd ../
 done
 
 #Copy .sh file to /var/www/html
