@@ -30,6 +30,6 @@ done
 
 #Copy .sh file to /var/www/html
 #run
-chmod +x /var/www/html/wave2mp3.sh
+chmod +x /usr/bin/local/wave2mp3.sh
 #Create a cron job to run the script at 3:30am daily
-30 3 * * * /var/www/html/wave2mp3.sh
+30 3 * * * /usr/bin/local/wave2mp3.sh
