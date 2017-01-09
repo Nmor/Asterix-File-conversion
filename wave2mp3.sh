@@ -28,7 +28,7 @@ for day in `ls`; do # iterate through all days in month
   cd ../
 done
 
-#Copy .sh file to /var/www/html
+#Copy .sh file to /usr/bin/local/
 #run
 chmod +x /usr/bin/local/wave2mp3.sh
 #Create a cron job to run the script at 3:30am daily
