@@ -15,7 +15,9 @@ done
 
 #Then create the bash script to convert the backed up file 
 #!/bin/bash
-recorddir="${1:-/var/www/html/monitor/2017/01/08}"
+DATE_DIR=$(date +%Y/%m)
+DAY_DIR=$(date +%d)
+recorddir="${1:-/var/www/html/monitor/${DATE_DIR}/${DAY_DIR}}"
 cd $recorddir;
 for file in *.wav; do
 mp3=$(basename "$file" .wav).mp3;
@@ -23,9 +25,9 @@ nice lame -b 16 -m m -q 9-resample "$file" "$mp3";
 #touch --reference "$file" "$mp3";
 chown asterisk.asterisk "$mp3";
 chmod 444 "$mp3";
-mv "$mp3" /var/www/html/monitor/mp3/2017/01/08;
+mv "$mp3" /var/www/html/monitor/mp3/${DATE_DIR}/${DAY_DIR};
 rm -f "$file";
-done 
+done
 
 #Copy .sh file to /usr/bin/local/
 #run
